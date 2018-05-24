@@ -1,0 +1,15 @@
+package c2j.listeners
+
+import c2j.c.CParser
+
+trait EnumerationConstantListener extends BaseListenerTrait {
+    @Override
+    void enterEnumerationConstant(CParser.EnumerationConstantContext ctx) {
+        appendHiddenTokensToLeftOf ctx
+        appendIfNotNull ctx.Identifier()
+    }
+
+    @Override
+    void exitEnumerationConstant(CParser.EnumerationConstantContext ctx) {
+    }
+}
