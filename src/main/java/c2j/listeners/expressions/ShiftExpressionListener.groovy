@@ -15,9 +15,4 @@ trait ShiftExpressionListener extends BaseListenerTrait {
             appendIfNotNull parent.GreaterEqual(), J.GE
         }
     }
-
-    @Override
-    void exitShiftExpression(CParser.ShiftExpressionContext ctx) {
-
-    }
 }

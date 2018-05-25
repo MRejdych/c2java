@@ -10,9 +10,4 @@ trait UnaryExpressionListener extends BaseListenerTrait {
         appendIfNotNull ctx.PlusPlus(), J.INC
         appendIfNotNull ctx.MinusMinus(), J.DEC
     }
-
-    @Override
-    void exitUnaryExpression(CParser.UnaryExpressionContext ctx) {
-
-    }
 }

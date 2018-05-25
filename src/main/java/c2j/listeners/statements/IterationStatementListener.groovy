@@ -7,7 +7,6 @@ import c2j.listeners.BaseListenerTrait
 trait IterationStatementListener extends BaseListenerTrait {
     @Override
     void enterIterationStatement(CParser.IterationStatementContext ctx) {
-
         if (ctx.Do() != null) {
             appendIfNotNull ctx.Do(), J.DO
             return

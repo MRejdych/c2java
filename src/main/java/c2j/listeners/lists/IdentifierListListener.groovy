@@ -6,11 +6,6 @@ import c2j.listeners.BaseListenerTrait
 
 trait IdentifierListListener extends BaseListenerTrait {
     @Override
-    void enterIdentifierList(CParser.IdentifierListContext ctx) {
-
-    }
-
-    @Override
     void exitIdentifierList(CParser.IdentifierListContext ctx) {
         appendIfNotNull ctx.Comma(), J.COMMA
         appendIfNotNull ctx.Identifier()?.getText()

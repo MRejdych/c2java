@@ -12,9 +12,4 @@ trait AndExpressionListener extends BaseListenerTrait {
             appendIfNotNull parent.Caret(), J.CARET
         }
     }
-
-    @Override
-    void exitAndExpression(CParser.AndExpressionContext ctx) {
-
-    }
 }

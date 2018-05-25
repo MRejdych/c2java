@@ -17,9 +17,4 @@ trait AssignmentExpressionListener extends BaseListenerTrait {
             appendIfNotNull parent.Comma(), J.COMMA
         }
     }
-
-    @Override
-    void exitAssignmentExpression(CParser.AssignmentExpressionContext ctx) {
-
-    }
 }

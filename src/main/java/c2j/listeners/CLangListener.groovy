@@ -1,6 +1,5 @@
 package c2j.listeners
 
-import c2j.DeclarationListener
 import c2j.J
 import c2j.c.CBaseListener
 import c2j.listeners.declarations.ExternalDeclarationListener
@@ -29,7 +28,6 @@ class CLangListener
                 AssignmentOperatorListener,
                 CompilationUnitListener,
                 EnumerationConstantListener,
-                EnumerationListener,
                 EnumSpecifierListener,
                 JumpStatementListener,
                 PrimaryExpressionListener,
@@ -42,7 +40,6 @@ class CLangListener
                 UnaryExpressionListener,
                 CastExpressionListener,
                 MultiplicativeExpressionListener,
-                AdditiveExpressionListener,
                 ShiftExpressionListener,
                 RelationalExpressionListener,
                 EqualityExpressionListener,

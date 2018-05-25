@@ -14,9 +14,4 @@ trait EqualityExpressionListener extends BaseListenerTrait {
 
         }
     }
-
-    @Override
-    void exitEqualityExpression(CParser.EqualityExpressionContext ctx) {
-
-    }
 }

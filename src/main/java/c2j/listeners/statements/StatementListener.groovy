@@ -7,8 +7,6 @@ import c2j.listeners.BaseListenerTrait
 trait StatementListener extends BaseListenerTrait {
     @Override
     void enterStatement(CParser.StatementContext ctx) {
-
-
         def genericParent = ctx.getParent()
 
         if (genericParent instanceof CParser.SelectionStatementContext) {

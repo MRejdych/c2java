@@ -7,8 +7,4 @@ trait EnumerationConstantListener extends BaseListenerTrait {
     void enterEnumerationConstant(CParser.EnumerationConstantContext ctx) {
         appendIfNotNull ctx.Identifier()
     }
-
-    @Override
-    void exitEnumerationConstant(CParser.EnumerationConstantContext ctx) {
-    }
 }

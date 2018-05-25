@@ -6,11 +6,6 @@ import c2j.listeners.BaseListenerTrait
 
 trait ExpressionListener extends BaseListenerTrait {
     @Override
-    void enterExpression(CParser.ExpressionContext ctx) {
-
-    }
-
-    @Override
     void exitExpression(CParser.ExpressionContext ctx) {
         def genericParent = ctx.getParent()
         if (genericParent instanceof CParser.ConditionalExpressionContext) {

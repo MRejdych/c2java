@@ -7,11 +7,6 @@ import c2j.listeners.BaseListenerTrait
 
 trait PostfixExpressionListener extends BaseListenerTrait {
     @Override
-    void enterPostfixExpression(CParser.PostfixExpressionContext ctx) {
-
-    }
-
-    @Override
     void exitPostfixExpression(CParser.PostfixExpressionContext ctx) {
         appendIfNotNull ctx.PlusPlus(), J.INC
         appendIfNotNull ctx.MinusMinus(), J.DEC

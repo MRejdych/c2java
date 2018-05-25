@@ -12,9 +12,4 @@ trait ForExpressionListener extends BaseListenerTrait {
             appendIfNotNull parent.Semi()[0], J.SEMI
         }
     }
-
-    @Override
-    void exitForExpression(CParser.ForExpressionContext ctx) {
-
-    }
 }

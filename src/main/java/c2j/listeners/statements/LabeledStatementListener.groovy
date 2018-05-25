@@ -17,9 +17,4 @@ trait LabeledStatementListener extends BaseListenerTrait {
             appendIfNotNull ctx.Colon(), J.COLON
         }
     }
-
-    @Override
-    void exitLabeledStatement(CParser.LabeledStatementContext ctx) {
-
-    }
 }

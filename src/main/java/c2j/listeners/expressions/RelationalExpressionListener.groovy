@@ -14,9 +14,4 @@ trait RelationalExpressionListener extends BaseListenerTrait {
             appendIfNotNull parent.NotEqual(), J.NOTEQUAL
         }
     }
-
-    @Override
-    void exitRelationalExpression(CParser.RelationalExpressionContext ctx) {
-
-    }
 }

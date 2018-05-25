@@ -9,14 +9,7 @@ trait ExclusiveOrExpressionListener extends BaseListenerTrait {
     void enterExclusiveOrExpression(CParser.ExclusiveOrExpressionContext ctx) {
         if (ctx.getParent() instanceof CParser.InclusiveOrExpressionContext) {
             def parent = ctx.getParent() as CParser.InclusiveOrExpressionContext
-
             appendIfNotNull parent.Or(), J.BITOR
-
         }
-    }
-
-    @Override
-    void exitExclusiveOrExpression(CParser.ExclusiveOrExpressionContext ctx) {
-
     }
 }

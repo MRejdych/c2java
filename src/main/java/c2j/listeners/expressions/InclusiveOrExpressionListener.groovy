@@ -9,14 +9,7 @@ trait InclusiveOrExpressionListener extends BaseListenerTrait {
     void enterInclusiveOrExpression(CParser.InclusiveOrExpressionContext ctx) {
         if (ctx.getParent() instanceof CParser.LogicalAndExpressionContext) {
             def parent = ctx.getParent() as CParser.LogicalAndExpressionContext
-
             appendIfNotNull parent.AndAnd(), J.AND
-
         }
-    }
-
-    @Override
-    void exitInclusiveOrExpression(CParser.InclusiveOrExpressionContext ctx) {
-
     }
 }

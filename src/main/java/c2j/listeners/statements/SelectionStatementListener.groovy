@@ -11,9 +11,4 @@ trait SelectionStatementListener extends BaseListenerTrait {
         appendIfNotNull ctx.Switch(), J.SWITCH
         appendIfNotNull ctx.LeftParen(), J.LPAREN
     }
-
-    @Override
-    void exitSelectionStatement(CParser.SelectionStatementContext ctx) {
-
-    }
 }

@@ -12,11 +12,4 @@ trait InitializerListener extends BaseListenerTrait {
             appendIfNotNull " "
         }
     }
-
-    @Override
-    void exitInitializer(CParser.InitializerContext ctx) {
-        if (ctx.parent instanceof CParser.InitDeclaratorContext) {
-
-        }
-    }
 }
