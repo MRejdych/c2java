@@ -9,7 +9,9 @@ trait EqualityExpressionListener extends BaseListenerTrait {
     void enterEqualityExpression(CParser.EqualityExpressionContext ctx) {
         if (ctx.getParent() instanceof CParser.AndExpressionContext) {
             def parent = ctx.getParent() as CParser.AndExpressionContext
+
             appendIfNotNull parent.And(), J.BITAND
+
         }
     }
 

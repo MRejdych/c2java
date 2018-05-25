@@ -20,6 +20,9 @@ class Application {
         CParser.CompilationUnitContext ctx = parser.compilationUnit()
         ParseTreeListener listener = new CLangListener(fileName, tokenStream)
         ParseTreeWalker.DEFAULT.walk(listener, ctx)
-        print listener.getBuffer().toString()
+        print listener.getResult()
+        File out = new File("Hello.java")
+        out.createNewFile()
+        out.write(listener.getResult())
     }
 }

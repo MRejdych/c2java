@@ -13,6 +13,10 @@ trait BaseListenerTrait implements CListener {
 
     abstract def getFromJavaVocab(int index)
 
+    abstract String getClassNameIfPreceeding()
+
+    abstract def setClassName(String name)
+
     abstract String getFileName()
 
     abstract StringBuilder getBuffer()

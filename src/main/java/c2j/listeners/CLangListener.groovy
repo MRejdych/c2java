@@ -1,11 +1,12 @@
 package c2j.listeners
 
+import c2j.DeclarationListener
 import c2j.J
 import c2j.c.CBaseListener
 import c2j.listeners.declarations.ExternalDeclarationListener
 import c2j.listeners.declarations.StaticAssertDeclarationListener
 import c2j.listeners.expressions.*
-import c2j.listeners.forComponents.ForExpressionListener
+import c2j.listeners.lists.ArgumentExpressionListListener
 import c2j.listeners.lists.EnumeratorListListener
 import c2j.listeners.lists.IdentifierListListener
 import c2j.listeners.lists.ParameterListListener
@@ -19,6 +20,8 @@ import org.antlr.v4.runtime.CommonTokenStream
 import org.antlr.v4.runtime.ParserRuleContext
 import org.antlr.v4.runtime.Vocabulary
 import org.antlr.v4.runtime.tree.TerminalNode
+
+import java.util.regex.Pattern
 
 class CLangListener
         extends CBaseListener
@@ -65,17 +68,35 @@ class CLangListener
                 EnumeratorListListener,
                 ParameterListListener,
                 NestedParenthesesBlockListener,
-                DirectDeclaratorListener {
+                DirectDeclaratorListener,
+                InitializerListener,
+                DeclarationListener,
+                GenericSelectionListener,
+                ArgumentExpressionListListener,
+                FunctionDefinitionListener {
     String fileName
     CommonTokenStream tokenChannel
     Vocabulary java8Vocabulary
     StringBuilder buffer
+    List<Integer> handledTokens
+    private String className
+
 
     CLangListener(String fileName, CommonTokenStream tokenChannel) {
         this.fileName = fileName
         this.tokenChannel = tokenChannel
         this.java8Vocabulary = J.VOCABULARY
         this.buffer = new StringBuilder(10000)
+        this.handledTokens = new ArrayList<>()
+    }
+
+    @Override
+    void enterEveryRule(ParserRuleContext ctx) {
+        int startTokenIndex = ctx.start.tokenIndex
+        if (!handledTokens.contains(startTokenIndex)) {
+            handledTokens.add(startTokenIndex)
+            appendHiddenTokensToLeftOf(ctx)
+        }
     }
 
     @Override
@@ -104,5 +125,25 @@ class CLangListener
     @Override
     def getFromJavaVocab(int index) {
         return java8Vocabulary.getLiteralName(index)
+    }
+
+    @Override
+    def setClassName(String name) {
+        return className = name
+    }
+
+    @Override
+    String getClassNameIfPreceeding() {
+        String name = className ? new String(className) : null
+        className = null
+        return name
+    }
+
+    String getResult() {
+        String result = buffer.toString()
+        Pattern funDeclarations = Pattern.compile("(int|short|long|double|float|void|boolean|char)\\s+([a-zA-Z_]*)(\\()([a-zA-Z0-9\\s,]*)(\\));")
+        result = result.replaceAll(funDeclarations, "")
+        result = result.replace("static int main()", "public static void main(String[] args)")
+        return result
     }
 }

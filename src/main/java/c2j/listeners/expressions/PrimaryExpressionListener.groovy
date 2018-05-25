@@ -7,7 +7,6 @@ trait PrimaryExpressionListener extends BaseListenerTrait {
 
     @Override
     void enterPrimaryExpression(CParser.PrimaryExpressionContext ctx) {
-        appendHiddenTokensToLeftOf ctx
         appendIfNotNull ctx.Identifier()
         appendIfNotNull ctx.Constant()
         ctx.StringLiteral().forEach({ literal -> appendIfNotNull literal })

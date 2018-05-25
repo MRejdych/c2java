@@ -6,10 +6,13 @@ import c2j.listeners.BaseListenerTrait
 trait StructOrUnionSpecifierListener extends BaseListenerTrait {
     @Override
     void enterStructOrUnionSpecifier(CParser.StructOrUnionSpecifierContext ctx) {
-        appendHiddenTokensToLeftOf ctx
+
         if (ctx.structDeclarationList() != null) {
-            appendIfNotNull "public class ${ctx.Identifier() ?: "StructWrapper"} {"
-        } else appendIfNotNull ctx.Identifier()
+            appendIfNotNull "public static class ${ctx.Identifier() ?: "StructWrapper"} {"
+        } else {
+            appendIfNotNull ctx.Identifier()
+            setClassName(ctx.Identifier().getText())
+        }
     }
 
     @Override

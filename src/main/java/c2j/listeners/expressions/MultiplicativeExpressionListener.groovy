@@ -9,8 +9,10 @@ trait MultiplicativeExpressionListener extends BaseListenerTrait {
     void enterMultiplicativeExpression(CParser.MultiplicativeExpressionContext ctx) {
         if (ctx.getParent() instanceof CParser.AdditiveExpressionContext) {
             def parent = ctx.getParent() as CParser.AdditiveExpressionContext
+
             appendIfNotNull parent.Plus(), J.ADD
             appendIfNotNull parent.Minus(), J.SUB
+
         }
     }
 

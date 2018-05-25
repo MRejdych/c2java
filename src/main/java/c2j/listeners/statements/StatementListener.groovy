@@ -7,7 +7,7 @@ import c2j.listeners.BaseListenerTrait
 trait StatementListener extends BaseListenerTrait {
     @Override
     void enterStatement(CParser.StatementContext ctx) {
-        appendHiddenTokensToLeftOf ctx
+
 
         def genericParent = ctx.getParent()
 

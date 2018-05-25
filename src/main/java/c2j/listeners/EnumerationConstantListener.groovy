@@ -5,7 +5,6 @@ import c2j.c.CParser
 trait EnumerationConstantListener extends BaseListenerTrait {
     @Override
     void enterEnumerationConstant(CParser.EnumerationConstantContext ctx) {
-        appendHiddenTokensToLeftOf ctx
         appendIfNotNull ctx.Identifier()
     }
 

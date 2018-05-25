@@ -17,5 +17,6 @@ trait PostfixExpressionListener extends BaseListenerTrait {
         appendIfNotNull ctx.MinusMinus(), J.DEC
         appendIfNotNull ctx.Dot(), J.DOT
         appendIfNotNull ctx.Identifier()
+        appendIfNotNull ctx.RightParen(), J.RPAREN
     }
 }

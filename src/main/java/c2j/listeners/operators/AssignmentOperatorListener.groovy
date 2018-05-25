@@ -7,7 +7,7 @@ import c2j.listeners.BaseListenerTrait
 trait AssignmentOperatorListener extends BaseListenerTrait {
     @Override
     void enterAssignmentOperator(CParser.AssignmentOperatorContext ctx) {
-        appendHiddenTokensToLeftOf ctx
+
         appendIfNotNull ctx.Assign(), J.ASSIGN
         appendIfNotNull ctx.StarAssign(), J.MUL_ASSIGN
         appendIfNotNull ctx.DivAssign(), J.DIV_ASSIGN

@@ -7,7 +7,7 @@ import c2j.listeners.BaseListenerTrait
 trait UnaryOperatorListener extends BaseListenerTrait {
     @Override
     void enterUnaryOperator(CParser.UnaryOperatorContext ctx) {
-        appendHiddenTokensToLeftOf ctx
+
         appendIfNotNull ctx.And(), J.BITAND
         appendIfNotNull ctx.Not(), J.BANG
         appendIfNotNull ctx.Plus(), J.ADD

@@ -9,7 +9,9 @@ trait LogicalAndExpressionListener extends BaseListenerTrait {
     void enterLogicalAndExpression(CParser.LogicalAndExpressionContext ctx) {
         if (ctx.getParent() instanceof CParser.LogicalOrExpressionContext) {
             def parent = ctx.getParent() as CParser.LogicalOrExpressionContext
+
             appendIfNotNull parent.OrOr(), J.OR
+
         }
     }
 
