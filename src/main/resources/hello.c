@@ -59,7 +59,7 @@ int main(void)
     testStruct.field6 = 100000;
 
     test = example_function(1, 2, 3);
-    _Bool testBoolean = example_conditions(5, 2);
+    _Bool testBoolean = example_function_with_conditions(5, 2);
 
     return;
 }
@@ -76,6 +76,6 @@ int example_function(int a, int b, int c) {
     return result;
 }
 
-_Bool example_conditions(int a, int b) {
+_Bool example_function_with_conditions(int a, int b) {
     return a == 1 && b != 2 || 1 < 2 || 1 > 2 || 1 >= 2 || 1 <= 2 && 1 != 2;
 }
