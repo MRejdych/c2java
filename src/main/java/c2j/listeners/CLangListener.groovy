@@ -61,7 +61,6 @@ class CLangListener
                 ForExpressionListener,
                 ExternalDeclarationListener,
                 StaticAssertDeclarationListener,
-                DesignatorListener,
                 EnumeratorListListener,
                 ParameterListListener,
                 NestedParenthesesBlockListener,
