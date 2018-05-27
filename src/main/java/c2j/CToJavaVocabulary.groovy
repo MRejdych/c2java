@@ -1,6 +1,6 @@
 package c2j
 
-import c2j.c.CLexer
+import c2j.antlrGenerated.CLexer
 
 class CToJavaVocabulary {
     public static def unsupportedPlaceholder = "\${statement}"

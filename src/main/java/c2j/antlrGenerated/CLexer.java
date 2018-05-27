@@ -1,6 +1,6 @@
 // Generated from c2j\c\C.g4 by ANTLR 4.7.1
 
-package c2j.c;
+package c2j.antlrGenerated;
 
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.atn.ATN;

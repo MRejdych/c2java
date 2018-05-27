@@ -1,7 +1,7 @@
 package c2j.listeners
 
 import c2j.CToJavaVocabulary
-import c2j.c.CBaseListener
+import c2j.antlrGenerated.CBaseListener
 import c2j.listeners.declarations.ExternalDeclarationListener
 import c2j.listeners.declarations.StaticAssertDeclarationListener
 import c2j.listeners.expressions.*
@@ -70,6 +70,7 @@ class CLangListener
                 ArgumentExpressionListListener,
                 FunctionDefinitionListener {
     String fileName
+    String packageName
     CommonTokenStream tokenChannel
     StringBuilder buffer
     List<Integer> handledTokens
@@ -77,8 +78,9 @@ class CLangListener
     private String className
 
 
-    CLangListener(String fileName, CommonTokenStream tokenChannel) {
+    CLangListener(String fileName, String packageName, CommonTokenStream tokenChannel) {
         this.fileName = fileName
+        this.packageName = packageName
         this.tokenChannel = tokenChannel
         this.buffer = new StringBuilder(10000)
         this.handledTokens = new ArrayList<>()
@@ -148,6 +150,9 @@ class CLangListener
 
     String getResult() {
         String result = buffer.toString()
+        if (packageName != "") {
+            result = "package ${packageName}; \n\n" + result
+        }
         Pattern funDeclarations = Pattern.compile("(int|short|long|double|float|void|boolean|char)\\s+([a-zA-Z_]*)(\\()([a-zA-Z0-9\\s,]*)(\\));")
         result = result.replaceAll(funDeclarations, "")
         result = result.replace("static int main()", "public static void main(String[] args)")

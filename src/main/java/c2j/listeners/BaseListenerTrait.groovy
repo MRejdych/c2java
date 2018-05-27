@@ -1,6 +1,6 @@
 package c2j.listeners
 
-import c2j.c.CListener
+import c2j.antlrGenerated.CListener
 import org.antlr.v4.runtime.ParserRuleContext
 import org.antlr.v4.runtime.tree.TerminalNode
 

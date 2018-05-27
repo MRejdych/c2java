@@ -1,6 +1,6 @@
 package c2j.listeners.declarations
 
-import c2j.c.CParser
+import c2j.antlrGenerated.CParser
 import c2j.listeners.BaseListenerTrait
 
 trait StaticAssertDeclarationListener extends BaseListenerTrait {

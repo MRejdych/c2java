@@ -1,6 +1,6 @@
 package c2j.listeners
 
-import c2j.c.CParser
+import c2j.antlrGenerated.CParser
 
 trait GenericSelectionListener extends BaseListenerTrait {
     @Override
