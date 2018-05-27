@@ -1,17 +1,14 @@
 package c2j.listeners.expressions
 
-import c2j.J
 import c2j.c.CParser
 import c2j.listeners.BaseListenerTrait
-
 
 trait PostfixExpressionListener extends BaseListenerTrait {
     @Override
     void exitPostfixExpression(CParser.PostfixExpressionContext ctx) {
-        appendIfNotNull ctx.PlusPlus(), J.INC
-        appendIfNotNull ctx.MinusMinus(), J.DEC
-        appendIfNotNull ctx.Dot(), J.DOT
+        translateAndAppendIfNotNull([ctx.PlusPlus(), ctx.MinusMinus(), ctx.Dot()])
         appendIfNotNull ctx.Identifier()
-        appendIfNotNull ctx.RightParen(), J.RPAREN
+        translateAndAppendIfNotNull([ctx.RightParen()])
+
     }
 }

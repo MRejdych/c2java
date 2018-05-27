@@ -1,6 +1,5 @@
 package c2j.listeners.statements
 
-import c2j.J
 import c2j.c.CParser
 import c2j.listeners.BaseListenerTrait
 
@@ -8,19 +7,16 @@ trait IterationStatementListener extends BaseListenerTrait {
     @Override
     void enterIterationStatement(CParser.IterationStatementContext ctx) {
         if (ctx.Do() != null) {
-            appendIfNotNull ctx.Do(), J.DO
+            translateAndAppendIfNotNull([ctx.Do()])
             return
         }
-        appendIfNotNull ctx.While(), J.WHILE
-        appendIfNotNull ctx.For(), J.FOR
-        appendIfNotNull ctx.LeftParen(), J.LPAREN
+        translateAndAppendIfNotNull([ctx.While(), ctx.For(), ctx.LeftParen()])
     }
 
     @Override
     void exitIterationStatement(CParser.IterationStatementContext ctx) {
         if (ctx.Do() != null) {
-            appendIfNotNull ctx.LeftParen(), J.LPAREN
-            appendIfNotNull ctx.Semi(), J.SEMI
+            translateAndAppendIfNotNull([ctx.LeftParen(), ctx.Semi()])
         }
     }
 }

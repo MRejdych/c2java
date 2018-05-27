@@ -1,6 +1,5 @@
 package c2j.listeners.expressions
 
-import c2j.J
 import c2j.c.CParser
 import c2j.listeners.BaseListenerTrait
 
@@ -9,7 +8,7 @@ trait AndExpressionListener extends BaseListenerTrait {
     void enterAndExpression(CParser.AndExpressionContext ctx) {
         if (ctx.getParent() instanceof CParser.ExclusiveOrExpressionContext) {
             def parent = ctx.getParent() as CParser.ExclusiveOrExpressionContext
-            appendIfNotNull parent.Caret(), J.CARET
+            translateAndAppendIfNotNull([parent.Caret()])
         }
     }
 }

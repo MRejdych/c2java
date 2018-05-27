@@ -1,6 +1,5 @@
 package c2j.listeners.expressions
 
-import c2j.J
 import c2j.c.CParser
 import c2j.listeners.BaseListenerTrait
 
@@ -9,7 +8,7 @@ trait ForExpressionListener extends BaseListenerTrait {
     void enterForExpression(CParser.ForExpressionContext ctx) {
         if (ctx.getParent() instanceof CParser.ForConditionContext) {
             def parent = ctx.getParent() as CParser.ForConditionContext
-            appendIfNotNull parent.Semi()[0], J.SEMI
+            translateAndAppendIfNotNull([parent.Semi()[0]])
         }
     }
 }

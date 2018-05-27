@@ -1,15 +1,13 @@
 package c2j.listeners
 
-import c2j.J
 import c2j.c.CParser
 
 trait DirectDeclaratorListener extends BaseListenerTrait {
     @Override
     void enterDirectDeclarator(CParser.DirectDeclaratorContext ctx) {
-
         appendIfNotNull ctx.Identifier()
         if (ctx.declarator() != null) {
-            appendIfNotNull ctx.LeftParen(), J.LPAREN
+            translateAndAppendIfNotNull([ctx.LeftParen()])
         }
         Optional<String> className = Optional.ofNullable(getClassNameIfPreceeding())
         if (className.isPresent()) {
@@ -23,12 +21,10 @@ trait DirectDeclaratorListener extends BaseListenerTrait {
         if (ctx.getParent() instanceof CParser.DirectDeclaratorContext) {
             def parent = ctx.getParent() as CParser.DirectDeclaratorContext
             if (parent.pointer() == null) {
-                appendIfNotNull parent.LeftParen(), J.LPAREN
-                appendIfNotNull parent.LeftBracket(), J.LBRACK
+                translateAndAppendIfNotNull([parent.LeftParen(), parent.LeftBracket()])
             }
         }
-        appendIfNotNull ctx.RightParen(), J.RPAREN
-        appendIfNotNull ctx.RightBracket(), J.RBRACK
+        translateAndAppendIfNotNull([ctx.RightParen(), ctx.RightBracket()])
     }
 
 }

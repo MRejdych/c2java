@@ -10,11 +10,11 @@ trait PrimaryExpressionListener extends BaseListenerTrait {
         appendIfNotNull ctx.Identifier()
         appendIfNotNull ctx.Constant()
         ctx.StringLiteral().forEach({ literal -> appendIfNotNull literal })
-        appendIfNotNull ctx.LeftParen()
+        translateAndAppendIfNotNull([ctx.LeftParen()])
     }
 
     @Override
     void exitPrimaryExpression(CParser.PrimaryExpressionContext ctx) {
-        appendIfNotNull ctx.RightParen()
+        translateAndAppendIfNotNull([ctx.RightParen()])
     }
 }

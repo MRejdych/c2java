@@ -1,6 +1,5 @@
 package c2j.listeners.expressions
 
-import c2j.J
 import c2j.c.CParser
 import c2j.listeners.BaseListenerTrait
 
@@ -10,10 +9,10 @@ trait ExpressionListener extends BaseListenerTrait {
         def genericParent = ctx.getParent()
         if (genericParent instanceof CParser.ConditionalExpressionContext) {
             def parent = genericParent as CParser.ConditionalExpressionContext
-            appendIfNotNull parent.Colon(), J.COLON
+            translateAndAppendIfNotNull([parent.Colon()])
         } else if (genericParent instanceof CParser.SelectionStatementContext) {
             def parent = genericParent as CParser.SelectionStatementContext
-            appendIfNotNull parent.RightParen(), J.RPAREN
+            translateAndAppendIfNotNull([parent.RightParen()])
         }
     }
 }

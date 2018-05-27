@@ -1,6 +1,6 @@
 package c2j.listeners
 
-import c2j.J
+import c2j.JavaVocabulary
 import c2j.c.CBaseListener
 import c2j.listeners.declarations.ExternalDeclarationListener
 import c2j.listeners.declarations.StaticAssertDeclarationListener
@@ -17,7 +17,6 @@ import c2j.listeners.specifiers.TypeSpecifierListener
 import c2j.listeners.statements.*
 import org.antlr.v4.runtime.CommonTokenStream
 import org.antlr.v4.runtime.ParserRuleContext
-import org.antlr.v4.runtime.Vocabulary
 import org.antlr.v4.runtime.tree.TerminalNode
 
 import java.util.regex.Pattern
@@ -72,7 +71,6 @@ class CLangListener
                 FunctionDefinitionListener {
     String fileName
     CommonTokenStream tokenChannel
-    Vocabulary java8Vocabulary
     StringBuilder buffer
     List<Integer> handledTokens
     private String className
@@ -81,7 +79,6 @@ class CLangListener
     CLangListener(String fileName, CommonTokenStream tokenChannel) {
         this.fileName = fileName
         this.tokenChannel = tokenChannel
-        this.java8Vocabulary = J.VOCABULARY
         this.buffer = new StringBuilder(10000)
         this.handledTokens = new ArrayList<>()
     }
@@ -100,18 +97,6 @@ class CLangListener
         tokenChannel.getHiddenTokensToLeft(ctx.start.tokenIndex)?.forEach({ token -> appendIfNotNull token.getText() })
     }
 
-    @Override
-    def appendIfNotNull(TerminalNode node, int ... javaEquivalent) {
-        if (node == null) return
-        List<String> equivalents = []
-        javaEquivalent.toSet()
-                .forEach {
-            i -> equivalents.add "${getFromJavaVocab(i as int).replaceAll("'", "")}"
-        }
-        String lastEl = equivalents.pop()
-        equivalents.forEach({ el -> appendIfNotNull "${el} " })
-        appendIfNotNull lastEl
-    }
 
     @Override
     def appendIfNotNull(def value) {
@@ -119,8 +104,11 @@ class CLangListener
     }
 
     @Override
-    def getFromJavaVocab(int index) {
-        return java8Vocabulary.getLiteralName(index)
+    void translateAndAppendIfNotNull(List<TerminalNode> terminalNodes) {
+        terminalNodes.stream().map({ node -> node?.symbol?.type })
+                .filter({ el -> el != null })
+                .map({ i -> JavaVocabulary.translateFromCToJava(i as int) })
+                .forEachOrdered({ string -> appendIfNotNull(string) })
     }
 
     @Override

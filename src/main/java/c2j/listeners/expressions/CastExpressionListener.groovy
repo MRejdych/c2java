@@ -1,6 +1,5 @@
 package c2j.listeners.expressions
 
-import c2j.J
 import c2j.c.CParser
 import c2j.listeners.BaseListenerTrait
 
@@ -9,16 +8,14 @@ trait CastExpressionListener extends BaseListenerTrait {
     void enterCastExpression(CParser.CastExpressionContext ctx) {
         if (ctx.getParent() instanceof CParser.MultiplicativeExpressionContext) {
             def parent = ctx.getParent() as CParser.MultiplicativeExpressionContext
-            appendIfNotNull parent.Star(), J.MUL
-            appendIfNotNull parent.Div(), J.DIV
-            appendIfNotNull parent.Mod(), J.MOD
+            translateAndAppendIfNotNull([parent.Star(), parent.Div(), parent.Mod()])
         }
-        appendIfNotNull ctx.LeftParen(), J.LPAREN
+        translateAndAppendIfNotNull([ctx.LeftParen()])
         appendIfNotNull ctx.DigitSequence()?.getText()
     }
 
     @Override
     void exitCastExpression(CParser.CastExpressionContext ctx) {
-        appendIfNotNull ctx.RightParen(), J.RPAREN
+        translateAndAppendIfNotNull([ctx.RightParen()])
     }
 }
