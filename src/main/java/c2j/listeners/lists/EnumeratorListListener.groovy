@@ -8,7 +8,7 @@ trait EnumeratorListListener extends BaseListenerTrait {
     void exitEnumeratorList(CParser.EnumeratorListContext ctx) {
         if (ctx.getParent() instanceof CParser.EnumeratorListContext) {
             def parent = ctx.getParent() as CParser.EnumeratorListContext
-            translateAndAppendIfNotNull([parent.Comma()])
+            translateAndAppendIfNotNull([parent.Comma()], parent)
         }
     }
 }

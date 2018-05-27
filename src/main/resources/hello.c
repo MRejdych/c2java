@@ -15,6 +15,7 @@ enum testEnum {PON, WT, SR, CZW, PT, SOB, ND};
 
 int main(void)
 {
+    signed int test2 = 1;
     int test = 0;
     test +=2;
     test -=1;
@@ -38,7 +39,7 @@ int main(void)
         }
     }
 
-
+    testL:
     switch(test) {
         case 1:
             test += 1;
@@ -49,7 +50,7 @@ int main(void)
         default:
             test = test + 1;
     }
-
+    goto testL;
     struct Test testStruct;
     testStruct.field1 = 1;
     testStruct.field2 = 'c';

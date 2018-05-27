@@ -7,9 +7,9 @@ trait DirectDeclaratorListener extends BaseListenerTrait {
     void enterDirectDeclarator(CParser.DirectDeclaratorContext ctx) {
         appendIfNotNull ctx.Identifier()
         if (ctx.declarator() != null) {
-            translateAndAppendIfNotNull([ctx.LeftParen()])
+            translateAndAppendIfNotNull([ctx.LeftParen()], ctx)
         }
-        Optional<String> className = Optional.ofNullable(getClassNameIfPreceeding())
+        Optional<String> className = Optional.ofNullable(getClassNameIfPreceding())
         if (className.isPresent()) {
             appendIfNotNull " = new ${className.get()}()"
         }
@@ -21,10 +21,10 @@ trait DirectDeclaratorListener extends BaseListenerTrait {
         if (ctx.getParent() instanceof CParser.DirectDeclaratorContext) {
             def parent = ctx.getParent() as CParser.DirectDeclaratorContext
             if (parent.pointer() == null) {
-                translateAndAppendIfNotNull([parent.LeftParen(), parent.LeftBracket()])
+                translateAndAppendIfNotNull([parent.LeftParen(), parent.LeftBracket()], parent)
             }
         }
-        translateAndAppendIfNotNull([ctx.RightParen(), ctx.RightBracket()])
+        translateAndAppendIfNotNull([ctx.RightParen(), ctx.RightBracket()], ctx)
     }
 
 }

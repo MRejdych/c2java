@@ -8,11 +8,11 @@ trait LabeledStatementListener extends BaseListenerTrait {
     void enterLabeledStatement(CParser.LabeledStatementContext ctx) {
         if (ctx.Identifier() != null) {
             appendIfNotNull ctx.Identifier().getText()
-            translateAndAppendIfNotNull([ctx.Colon()])
+            translateAndAppendIfNotNull([ctx.Colon()], ctx)
         } else if (ctx.Case() != null) {
-            translateAndAppendIfNotNull([ctx.Case()])
+            translateAndAppendIfNotNull([ctx.Case()], ctx)
         } else if (ctx.Default() != null) {
-            translateAndAppendIfNotNull([ctx.Default(), ctx.Colon()])
+            translateAndAppendIfNotNull([ctx.Default(), ctx.Colon()], ctx)
         }
     }
 }

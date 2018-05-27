@@ -10,10 +10,10 @@ trait AssignmentExpressionListener extends BaseListenerTrait {
 
         if (ctx.getParent() instanceof CParser.ExpressionContext) {
             def parent = ctx.getParent() as CParser.ExpressionContext
-            translateAndAppendIfNotNull([parent.Comma()])
+            translateAndAppendIfNotNull([parent.Comma()], parent)
         } else if (ctx.getParent() instanceof CParser.ForExpressionContext) {
             def parent = ctx.getParent() as CParser.ForExpressionContext
-            translateAndAppendIfNotNull([parent.Comma()])
+            translateAndAppendIfNotNull([parent.Comma()], parent)
         }
     }
 }

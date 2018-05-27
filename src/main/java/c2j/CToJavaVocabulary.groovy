@@ -2,7 +2,11 @@ package c2j
 
 import c2j.c.CLexer
 
-class JavaVocabulary {
+class CToJavaVocabulary {
+    public static def unsupportedPlaceholder = "\${statement}"
+    private static def unsupportedStatement = "Unsuported statement: $unsupportedPlaceholder"
+
+
     private static final Map<Integer, String> cToJavaVocabulary = [
             (CLexer.Break)           : "break",
             (CLexer.Case)            : "case",
@@ -14,28 +18,28 @@ class JavaVocabulary {
             (CLexer.Double)          : "double",
             (CLexer.Else)            : "else",
             (CLexer.Enum)            : "enum",
-            (CLexer.Extern)          : "",
+            (CLexer.Extern)          : "/* Replace extern declaration with proper Java import statement or implement other alternative. $unsupportedStatement */\n",
             (CLexer.Float)           : "float",
             (CLexer.For)             : "for",
-            (CLexer.Goto)            : "",
+            (CLexer.Goto)            : "/* Implement alternative to C goto statement. $unsupportedStatement */\n",
             (CLexer.If)              : "if",
             (CLexer.Inline)          : "",
             (CLexer.Int)             : "int",
             (CLexer.Long)            : "long",
-            (CLexer.Register)        : "",
+            (CLexer.Register)        : "/* Warning. Register keyword omitted. */\n",
             (CLexer.Restrict)        : "",
             (CLexer.Return)          : "return",
             (CLexer.Short)           : "short",
-            (CLexer.Signed)          : "",
+            (CLexer.Signed)          : "/* signed keyword omitted. Java primitive types are signed by design. */\n",
             (CLexer.Sizeof)          : "",
             (CLexer.Static)          : "",
             (CLexer.Struct)          : "public static class",
             (CLexer.Switch)          : "switch",
             (CLexer.Typedef)         : "",
-            (CLexer.Union)           : "",
-            (CLexer.Unsigned)        : "",
+            (CLexer.Union)           : "public static class",
+            (CLexer.Unsigned)        : "/* Warning. Java does not support unsigned types. */\n",
             (CLexer.Void)            : "void",
-            (CLexer.Volatile)        : "",
+            (CLexer.Volatile)        : "volatile",
             (CLexer.While)           : "while",
             (CLexer.Alignas)         : "",
             (CLexer.Alignof)         : "",
@@ -72,8 +76,8 @@ class JavaVocabulary {
             (CLexer.OrOr)            : "||",
             (CLexer.Caret)           : "^",
             (CLexer.Not)             : "!",
-            (CLexer.Tilde)           : "",
-            (CLexer.Question)        : "",
+            (CLexer.Tilde)           : "~",
+            (CLexer.Question)        : "?",
             (CLexer.Colon)           : ":",
             (CLexer.Semi)            : ";",
             (CLexer.Comma)           : ",",
@@ -92,9 +96,8 @@ class JavaVocabulary {
             (CLexer.NotEqual)        : "!=",
             (CLexer.Arrow)           : "",
             (CLexer.Dot)             : ".",
-            (CLexer.Ellipsis)        : "",
-            (CLexer.Constant)        : ""
-    ]
+            (CLexer.Ellipsis)        : ""
+    ].asImmutable()
 
 
     static String translateFromCToJava(int tokenIndex) {

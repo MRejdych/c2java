@@ -7,7 +7,7 @@ trait InitializerListener extends BaseListenerTrait {
     void enterInitializer(CParser.InitializerContext ctx) {
         if (ctx.parent instanceof CParser.InitDeclaratorContext) {
             def parent = ctx.parent as CParser.InitDeclaratorContext
-            translateAndAppendIfNotNull([parent.Assign()])
+            translateAndAppendIfNotNull([parent.Assign()], parent)
             appendIfNotNull " "
         }
     }

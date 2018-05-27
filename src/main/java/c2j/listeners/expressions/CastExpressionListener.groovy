@@ -8,14 +8,14 @@ trait CastExpressionListener extends BaseListenerTrait {
     void enterCastExpression(CParser.CastExpressionContext ctx) {
         if (ctx.getParent() instanceof CParser.MultiplicativeExpressionContext) {
             def parent = ctx.getParent() as CParser.MultiplicativeExpressionContext
-            translateAndAppendIfNotNull([parent.Star(), parent.Div(), parent.Mod()])
+            translateAndAppendIfNotNull([parent.Star(), parent.Div(), parent.Mod()], parent)
         }
-        translateAndAppendIfNotNull([ctx.LeftParen()])
+        translateAndAppendIfNotNull([ctx.LeftParen()], ctx)
         appendIfNotNull ctx.DigitSequence()?.getText()
     }
 
     @Override
     void exitCastExpression(CParser.CastExpressionContext ctx) {
-        translateAndAppendIfNotNull([ctx.RightParen()])
+        translateAndAppendIfNotNull([ctx.RightParen()], ctx)
     }
 }

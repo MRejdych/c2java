@@ -7,16 +7,16 @@ trait IterationStatementListener extends BaseListenerTrait {
     @Override
     void enterIterationStatement(CParser.IterationStatementContext ctx) {
         if (ctx.Do() != null) {
-            translateAndAppendIfNotNull([ctx.Do()])
+            translateAndAppendIfNotNull([ctx.Do()], ctx)
             return
         }
-        translateAndAppendIfNotNull([ctx.While(), ctx.For(), ctx.LeftParen()])
+        translateAndAppendIfNotNull([ctx.While(), ctx.For(), ctx.LeftParen()], ctx)
     }
 
     @Override
     void exitIterationStatement(CParser.IterationStatementContext ctx) {
         if (ctx.Do() != null) {
-            translateAndAppendIfNotNull([ctx.LeftParen(), ctx.Semi()])
+            translateAndAppendIfNotNull([ctx.LeftParen(), ctx.Semi()], ctx)
         }
     }
 }

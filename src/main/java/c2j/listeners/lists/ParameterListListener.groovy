@@ -8,7 +8,7 @@ trait ParameterListListener extends BaseListenerTrait {
     void exitParameterList(CParser.ParameterListContext ctx) {
         if (ctx.getParent() instanceof CParser.ParameterListContext) {
             def parent = ctx.getParent() as CParser.ParameterListContext
-            translateAndAppendIfNotNull([parent.Comma()])
+            translateAndAppendIfNotNull([parent.Comma()], parent)
         }
     }
 }

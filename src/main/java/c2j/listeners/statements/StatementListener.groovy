@@ -11,12 +11,12 @@ trait StatementListener extends BaseListenerTrait {
         if (genericParent instanceof CParser.SelectionStatementContext) {
             def parent = genericParent as CParser.SelectionStatementContext
             if (parent.If() != null && parent.statement().indexOf(ctx) != 0) {
-                translateAndAppendIfNotNull([parent.Else()])
+                translateAndAppendIfNotNull([parent.Else()], parent)
             }
         } else if (genericParent instanceof CParser.IterationStatementContext) {
             def parent = genericParent as CParser.IterationStatementContext
             if (parent.Do() == null) {
-                translateAndAppendIfNotNull([parent.RightParen()])
+                translateAndAppendIfNotNull([parent.RightParen()], parent)
             }
         }
     }
@@ -28,7 +28,7 @@ trait StatementListener extends BaseListenerTrait {
         if (genericParent instanceof CParser.IterationStatementContext) {
             def parent = genericParent as CParser.IterationStatementContext
             if (parent.Do() != null) {
-                translateAndAppendIfNotNull([parent.While(), parent.RightParen()])
+                translateAndAppendIfNotNull([parent.While(), parent.RightParen()], parent)
             }
         }
     }

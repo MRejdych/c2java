@@ -1,6 +1,6 @@
 package c2j.listeners
 
-import c2j.JavaVocabulary
+import c2j.CToJavaVocabulary
 import c2j.c.CBaseListener
 import c2j.listeners.declarations.ExternalDeclarationListener
 import c2j.listeners.declarations.StaticAssertDeclarationListener
@@ -73,6 +73,7 @@ class CLangListener
     CommonTokenStream tokenChannel
     StringBuilder buffer
     List<Integer> handledTokens
+    Set<Integer> ignoredTokens
     private String className
 
 
@@ -81,6 +82,7 @@ class CLangListener
         this.tokenChannel = tokenChannel
         this.buffer = new StringBuilder(10000)
         this.handledTokens = new ArrayList<>()
+        this.ignoredTokens = new HashSet<>()
     }
 
     @Override
@@ -104,11 +106,32 @@ class CLangListener
     }
 
     @Override
-    void translateAndAppendIfNotNull(List<TerminalNode> terminalNodes) {
+    void translateAndAppendIfNotNull(List<TerminalNode> terminalNodes, ParserRuleContext ctx) {
         terminalNodes.stream().map({ node -> node?.symbol?.type })
                 .filter({ el -> el != null })
-                .map({ i -> JavaVocabulary.translateFromCToJava(i as int) })
+                .map({ i -> CToJavaVocabulary.translateFromCToJava(i as int) })
+                .map({ string -> replaceUnhandledStatementPlaceholderIfPresent(string as String, Optional.ofNullable(ctx)) })
                 .forEachOrdered({ string -> appendIfNotNull(string) })
+    }
+
+    private String replaceUnhandledStatementPlaceholderIfPresent(String input, Optional<ParserRuleContext> ctx) {
+        ctx.map({ context ->
+            if (input.contains(CToJavaVocabulary.unsupportedPlaceholder)) {
+                String modified = input.replace(CToJavaVocabulary.unsupportedPlaceholder, concatenateParserContextChildrenTokens(context))
+                ignoredTokens.addAll(context.start.tokenIndex..context.stop.tokenIndex)
+                return modified
+            } else return input
+        }
+        ).orElse(input)
+    }
+
+    private String concatenateParserContextChildrenTokens(ParserRuleContext ctx) {
+        StringBuilder output = new StringBuilder()
+        ctx?.children?.forEach({ child ->
+            output.append child?.getText()
+            output.append " "
+        })
+        return output.toString()
     }
 
     @Override
@@ -117,7 +140,7 @@ class CLangListener
     }
 
     @Override
-    String getClassNameIfPreceeding() {
+    String getClassNameIfPreceding() {
         String name = className ? new String(className) : null
         className = null
         return name

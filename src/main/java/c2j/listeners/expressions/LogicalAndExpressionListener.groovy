@@ -8,7 +8,7 @@ trait LogicalAndExpressionListener extends BaseListenerTrait {
     void enterLogicalAndExpression(CParser.LogicalAndExpressionContext ctx) {
         if (ctx.getParent() instanceof CParser.LogicalOrExpressionContext) {
             def parent = ctx.getParent() as CParser.LogicalOrExpressionContext
-            translateAndAppendIfNotNull([parent.OrOr()])
+            translateAndAppendIfNotNull([parent.OrOr()], parent)
         }
     }
 }

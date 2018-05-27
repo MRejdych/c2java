@@ -9,10 +9,10 @@ trait ExpressionListener extends BaseListenerTrait {
         def genericParent = ctx.getParent()
         if (genericParent instanceof CParser.ConditionalExpressionContext) {
             def parent = genericParent as CParser.ConditionalExpressionContext
-            translateAndAppendIfNotNull([parent.Colon()])
+            translateAndAppendIfNotNull([parent.Colon()], parent)
         } else if (genericParent instanceof CParser.SelectionStatementContext) {
             def parent = genericParent as CParser.SelectionStatementContext
-            translateAndAppendIfNotNull([parent.RightParen()])
+            translateAndAppendIfNotNull([parent.RightParen()], parent)
         }
     }
 }

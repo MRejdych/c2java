@@ -9,7 +9,7 @@ trait ArgumentExpressionListListener extends BaseListenerTrait {
     void enterArgumentExpressionList(CParser.ArgumentExpressionListContext ctx) {
         if (ctx.parent instanceof CParser.PostfixExpressionContext) {
             def parent = ctx.parent as CParser.PostfixExpressionContext
-            translateAndAppendIfNotNull([parent.LeftParen()])
+            translateAndAppendIfNotNull([parent.LeftParen()], parent)
         }
     }
 
@@ -17,7 +17,7 @@ trait ArgumentExpressionListListener extends BaseListenerTrait {
     void exitArgumentExpressionList(CParser.ArgumentExpressionListContext ctx) {
         if (ctx.getParent() instanceof CParser.ArgumentExpressionListContext) {
             def parent = ctx.getParent() as CParser.ArgumentExpressionListContext
-            translateAndAppendIfNotNull([parent.Comma()])
+            translateAndAppendIfNotNull([parent.Comma()], parent)
         }
     }
 }

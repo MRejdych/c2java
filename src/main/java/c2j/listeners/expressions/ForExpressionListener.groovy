@@ -8,7 +8,7 @@ trait ForExpressionListener extends BaseListenerTrait {
     void enterForExpression(CParser.ForExpressionContext ctx) {
         if (ctx.getParent() instanceof CParser.ForConditionContext) {
             def parent = ctx.getParent() as CParser.ForConditionContext
-            translateAndAppendIfNotNull([parent.Semi()[0]])
+            translateAndAppendIfNotNull([parent.Semi()[0]], parent)
         }
     }
 }

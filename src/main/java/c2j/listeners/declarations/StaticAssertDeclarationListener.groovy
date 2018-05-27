@@ -6,13 +6,13 @@ import c2j.listeners.BaseListenerTrait
 trait StaticAssertDeclarationListener extends BaseListenerTrait {
     @Override
     void enterStaticAssertDeclaration(CParser.StaticAssertDeclarationContext ctx) {
-        translateAndAppendIfNotNull([ctx.StaticAssert(), ctx.LeftParen()])
+        translateAndAppendIfNotNull([ctx.StaticAssert(), ctx.LeftParen()], ctx)
     }
 
     @Override
     void exitStaticAssertDeclaration(CParser.StaticAssertDeclarationContext ctx) {
-        translateAndAppendIfNotNull([ctx.Comma()])
+        translateAndAppendIfNotNull([ctx.Comma()], ctx)
         ctx.StringLiteral()?.forEach { literal -> appendIfNotNull literal }
-        translateAndAppendIfNotNull([ctx.RightParen(), ctx.Semi()])
+        translateAndAppendIfNotNull([ctx.RightParen(), ctx.Semi()], ctx)
     }
 }

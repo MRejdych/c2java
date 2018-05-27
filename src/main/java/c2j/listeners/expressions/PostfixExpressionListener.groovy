@@ -6,9 +6,9 @@ import c2j.listeners.BaseListenerTrait
 trait PostfixExpressionListener extends BaseListenerTrait {
     @Override
     void exitPostfixExpression(CParser.PostfixExpressionContext ctx) {
-        translateAndAppendIfNotNull([ctx.PlusPlus(), ctx.MinusMinus(), ctx.Dot()])
+        translateAndAppendIfNotNull([ctx.PlusPlus(), ctx.MinusMinus(), ctx.Dot()], ctx)
         appendIfNotNull ctx.Identifier()
-        translateAndAppendIfNotNull([ctx.RightParen()])
+        translateAndAppendIfNotNull([ctx.RightParen()], ctx)
 
     }
 }

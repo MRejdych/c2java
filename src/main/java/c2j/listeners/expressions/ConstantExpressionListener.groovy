@@ -8,7 +8,7 @@ trait ConstantExpressionListener extends BaseListenerTrait {
     void exitConstantExpression(CParser.ConstantExpressionContext ctx) {
         if (ctx.getParent() instanceof CParser.LabeledStatementContext) {
             def parent = ctx.parent as CParser.LabeledStatementContext
-            translateAndAppendIfNotNull([parent.Colon()])
+            translateAndAppendIfNotNull([parent.Colon()], parent)
         }
     }
 }

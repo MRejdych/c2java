@@ -9,11 +9,11 @@ trait BaseListenerTrait implements CListener {
 
     abstract def appendIfNotNull(def value)
 
-    abstract String getClassNameIfPreceeding()
+    abstract String getClassNameIfPreceding()
 
     abstract def setClassName(String name)
 
     abstract String getFileName()
 
-    abstract void translateAndAppendIfNotNull(List<TerminalNode> terminalNodes)
+    abstract void translateAndAppendIfNotNull(List<TerminalNode> terminalNodes, ParserRuleContext ctx = null)
 }

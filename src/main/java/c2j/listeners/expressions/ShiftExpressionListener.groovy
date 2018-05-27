@@ -8,7 +8,7 @@ trait ShiftExpressionListener extends BaseListenerTrait {
     void enterShiftExpression(CParser.ShiftExpressionContext ctx) {
         if (ctx.getParent() instanceof CParser.RelationalExpressionContext) {
             def parent = ctx.getParent() as CParser.RelationalExpressionContext
-            translateAndAppendIfNotNull([parent.Less(), parent.LessEqual(), parent.Greater(), parent.Greater()])
+            translateAndAppendIfNotNull([parent.Less(), parent.LessEqual(), parent.Greater(), parent.Greater()], parent)
         }
     }
 }

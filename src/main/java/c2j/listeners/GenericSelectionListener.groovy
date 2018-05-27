@@ -5,11 +5,11 @@ import c2j.c.CParser
 trait GenericSelectionListener extends BaseListenerTrait {
     @Override
     void enterGenericSelection(CParser.GenericSelectionContext ctx) {
-        translateAndAppendIfNotNull([ctx.LeftParen()])
+        translateAndAppendIfNotNull([ctx.LeftParen()], ctx)
     }
 
     @Override
     void exitGenericSelection(CParser.GenericSelectionContext ctx) {
-        translateAndAppendIfNotNull([ctx.RightParen()])
+        translateAndAppendIfNotNull([ctx.RightParen()], ctx)
     }
 }

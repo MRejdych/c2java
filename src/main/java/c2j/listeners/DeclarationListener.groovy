@@ -5,6 +5,6 @@ import c2j.c.CParser
 trait DeclarationListener extends BaseListenerTrait {
     @Override
     void exitDeclaration(CParser.DeclarationContext ctx) {
-        translateAndAppendIfNotNull([ctx.Semi()])
+        translateAndAppendIfNotNull([ctx.Semi()], ctx)
     }
 }

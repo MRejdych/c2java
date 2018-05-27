@@ -6,6 +6,6 @@ import c2j.listeners.BaseListenerTrait
 trait ExternalDeclarationListener extends BaseListenerTrait {
     @Override
     void exitExternalDeclaration(CParser.ExternalDeclarationContext ctx) {
-        translateAndAppendIfNotNull([ctx.Semi()])
+        translateAndAppendIfNotNull([ctx.Semi()], ctx)
     }
 }

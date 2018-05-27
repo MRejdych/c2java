@@ -7,7 +7,7 @@ trait EnumSpecifierListener extends BaseListenerTrait {
     @Override
     void enterEnumSpecifier(CParser.EnumSpecifierContext ctx) {
         appendIfNotNull "public "
-        translateAndAppendIfNotNull([ctx.Enum()])
+        translateAndAppendIfNotNull([ctx.Enum()], ctx)
         appendIfNotNull " ${ctx.Identifier() ?: "EnumWrapper"} {"
     }
 
