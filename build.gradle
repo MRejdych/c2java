@@ -1,9 +1,7 @@
-version '1.0-SNAPSHOT'
-
-apply plugin: 'java'
-apply plugin: 'groovy'
-apply plugin: 'antlr'
-
+plugins {
+    id "groovy"
+    id "antlr"
+}
 
 sourceCompatibility = 1.10
 
@@ -11,21 +9,29 @@ repositories {
     mavenCentral()
 }
 
+
 dependencies {
-    compile 'org.codehaus.groovy:groovy-all:2.4.15'
     antlr "org.antlr:antlr4:4.7.1"
-    compile group: 'org.antlr', name: 'antlr4', version: '4.7.1'
-    compile group: 'org.antlr', name: 'antlr4-runtime', version: '4.7.1'
-    compile group: 'org.antlr', name: 'ST4', version: '4.0.8'
-
-
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile 'com.google.googlejavaformat:google-java-format:1.6'
+    compile 'org.codehaus.groovy:groovy-all:2.4.15'
+    compile 'org.antlr:antlr4:4.7.1'
+    compile 'org.antlr:antlr4-runtime:4.7.1'
+    testCompile 'junit:junit:4.12'
 }
 
+
 sourceSets {
-    generated {
+    translated {
         java {
             srcDirs += "build/translated"
+        }
+    }
+    main {
+        java {
+            srcDirs = [] // don't compile Java code twice
+        }
+        groovy {
+            srcDirs = ['src/main/groovy', 'src/main/java']
         }
     }
 }
@@ -33,3 +39,14 @@ sourceSets {
 generateGrammarSource {
     arguments += ["-long-messages"]
 }
+
+task("translate", type: JavaExec) {
+    description = "Translates all C file which path is passed as argument or all files from ./src/main/resources if path is not speficied"
+    classpath = sourceSets.main.runtimeClasspath
+    main = "c2j.Application"
+    if (project.hasProperty("arguments")) {
+        args Eval.me(arguments)
+    }
+}
+
+

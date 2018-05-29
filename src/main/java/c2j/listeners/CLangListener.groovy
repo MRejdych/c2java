@@ -15,6 +15,7 @@ import c2j.listeners.specifiers.EnumSpecifierListener
 import c2j.listeners.specifiers.StructOrUnionSpecifierListener
 import c2j.listeners.specifiers.TypeSpecifierListener
 import c2j.listeners.statements.*
+import com.google.googlejavaformat.java.Formatter
 import org.antlr.v4.runtime.CommonTokenStream
 import org.antlr.v4.runtime.ParserRuleContext
 import org.antlr.v4.runtime.tree.TerminalNode
@@ -68,7 +69,8 @@ class CLangListener
                 DeclarationListener,
                 GenericSelectionListener,
                 ArgumentExpressionListListener,
-                FunctionDefinitionListener {
+                FunctionDefinitionListener,
+                DesignatorListener {
     String fileName
     String packageName
     CommonTokenStream tokenChannel
@@ -153,9 +155,11 @@ class CLangListener
         if (packageName != "") {
             result = "package ${packageName}; \n\n" + result
         }
-        Pattern funDeclarations = Pattern.compile("(int|short|long|double|float|void|boolean|char)\\s+([a-zA-Z_]*)(\\()([a-zA-Z0-9\\s,]*)(\\));")
+        Pattern funDeclarations = Pattern.compile("(int|short|long|double|float|void|boolean|char)\\s+([a-zA-Z_]*)(\\()([a-zA-Z0-9\\[\\]()\\s,]*)(\\));")
+        Pattern.compile("static int main(.*)")
         result = result.replaceAll(funDeclarations, "")
-        result = result.replace("static int main()", "public static void main(String[] args)")
+        result = result.replaceFirst("static int main(.*)", "public static void main(String[] args)")
+        return new Formatter().formatSource(result)
         return result
     }
 }

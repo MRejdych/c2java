@@ -12,8 +12,19 @@ trait DirectDeclaratorListener extends BaseListenerTrait {
         Optional<String> className = Optional.ofNullable(getClassNameIfPreceding())
         if (className.isPresent()) {
             appendIfNotNull " = new ${className.get()}()"
-        }
+        } else if (ctx.getParent() instanceof CParser.DirectDeclaratorContext) {
+            def parent = ctx.getParent() as CParser.DirectDeclaratorContext
+            if(parent.LeftBracket() && parent.assignmentExpression() && parent.RightBracket()) {
+                int firstWhiteSpaceIndex = getTokenChannel().getHiddenTokensToLeft(parent.start.tokenIndex)
+                        .stream()
+                        .sorted({x,y -> x.tokenIndex <=> y.tokenIndex })
+                        .findFirst()
+                        .get()
+                        ?.tokenIndex
 
+                appendIfNotNull "[] = new ${getTokenChannel().get(firstWhiteSpaceIndex - 1)?.getText()}"
+            }
+        }
     }
 
     @Override

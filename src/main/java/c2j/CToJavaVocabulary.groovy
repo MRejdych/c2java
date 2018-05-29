@@ -16,7 +16,7 @@ class CToJavaVocabulary {
             (CLexer.Default)         : "default",
             (CLexer.Do)              : "do",
             (CLexer.Double)          : "double",
-            (CLexer.Else)            : "else",
+            (CLexer.Else)            : "else ",
             (CLexer.Enum)            : "enum",
             (CLexer.Extern)          : "/* Replace extern declaration with proper Java import statement or implement other alternative. $unsupportedStatement */\n",
             (CLexer.Float)           : "float",

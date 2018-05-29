@@ -7,7 +7,19 @@ trait TypeSpecifierListener extends BaseListenerTrait {
     @Override
     void enterTypeSpecifier(CParser.TypeSpecifierContext ctx) {
         translateAndAppendIfNotNull(
-                [ctx.Char(), ctx.Short(), ctx.Int(), ctx.Long(), ctx.Float(), ctx.Double(), ctx.Bool(), ctx.Signed(), ctx.Unsigned(), ctx.Complex()]
+                [
+                        ctx.Void(),
+                        ctx.Char(),
+                        ctx.Short(),
+                        ctx.Int(),
+                        ctx.Long(),
+                        ctx.Float(),
+                        ctx.Double(),
+                        ctx.Bool(),
+                        ctx.Signed(),
+                        ctx.Unsigned(),
+                        ctx.Complex()
+                ]
         )
     }
 }
