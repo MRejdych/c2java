@@ -14,10 +14,10 @@ trait DirectDeclaratorListener extends BaseListenerTrait {
             appendIfNotNull " = new ${className.get()}()"
         } else if (ctx.getParent() instanceof CParser.DirectDeclaratorContext) {
             def parent = ctx.getParent() as CParser.DirectDeclaratorContext
-            if(parent.LeftBracket() && parent.assignmentExpression() && parent.RightBracket()) {
+            if (parent.LeftBracket() && parent.assignmentExpression() && parent.RightBracket()) {
                 int firstWhiteSpaceIndex = getTokenChannel().getHiddenTokensToLeft(parent.start.tokenIndex)
                         .stream()
-                        .sorted({x,y -> x.tokenIndex <=> y.tokenIndex })
+                        .sorted({ x, y -> x.tokenIndex <=> y.tokenIndex })
                         .findFirst()
                         .get()
                         ?.tokenIndex

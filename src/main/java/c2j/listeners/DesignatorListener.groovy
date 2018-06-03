@@ -2,7 +2,7 @@ package c2j.listeners
 
 import c2j.antlrGenerated.CParser
 
-trait DesignatorListener extends BaseListenerTrait{
+trait DesignatorListener extends BaseListenerTrait {
     @Override
     void enterDesignator(CParser.DesignatorContext ctx) {
         translateAndAppendIfNotNull([ctx.LeftBracket()], ctx)

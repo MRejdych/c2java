@@ -25,17 +25,23 @@ import java.util.regex.Pattern
 class CLangListener
         extends CBaseListener
         implements
-                AssignmentOperatorListener,
+                // others
                 CompilationUnitListener,
                 EnumerationConstantListener,
-                EnumSpecifierListener,
-                JumpStatementListener,
-                PrimaryExpressionListener,
-                StructOrUnionSpecifierListener,
                 TypedefNameListener,
                 TypeQualifierListener,
-                TypeSpecifierListener,
-                UnaryOperatorListener,
+                NestedParenthesesBlockListener,
+                DirectDeclaratorListener,
+                InitializerListener,
+                DeclarationListener,
+                GenericSelectionListener,
+                FunctionDefinitionListener,
+                DesignatorListener,
+                // declarations
+                ExternalDeclarationListener,
+                StaticAssertDeclarationListener,
+                // expressions
+                PrimaryExpressionListener,
                 PostfixExpressionListener,
                 UnaryExpressionListener,
                 CastExpressionListener,
@@ -51,33 +57,33 @@ class CLangListener
                 AssignmentExpressionListener,
                 ExpressionListener,
                 ConstantExpressionListener,
+                ForExpressionListener,
+                // operators
+                UnaryOperatorListener,
+                AssignmentOperatorListener,
+                // lists
+                IdentifierListListener,
+                EnumeratorListListener,
+                ParameterListListener,
+                ArgumentExpressionListListener,
+                // specifiers
+                EnumSpecifierListener,
+                StructOrUnionSpecifierListener,
+                TypeSpecifierListener,
+                // statements
                 LabeledStatementListener,
                 ExpressionStatementListener,
                 SelectionStatementListener,
                 StatementListener,
                 CompoundStatementListener,
                 IterationStatementListener,
-                IdentifierListListener,
-                ForExpressionListener,
-                ExternalDeclarationListener,
-                StaticAssertDeclarationListener,
-                EnumeratorListListener,
-                ParameterListListener,
-                NestedParenthesesBlockListener,
-                DirectDeclaratorListener,
-                InitializerListener,
-                DeclarationListener,
-                GenericSelectionListener,
-                ArgumentExpressionListListener,
-                FunctionDefinitionListener,
-                DesignatorListener {
+                JumpStatementListener {
     String fileName
     String packageName
     CommonTokenStream tokenChannel
     StringBuilder buffer
     List<Integer> handledTokens
-    Set<Integer> ignoredTokens
-    private String className
+    String className
 
 
     CLangListener(String fileName, String packageName, CommonTokenStream tokenChannel) {
@@ -86,7 +92,6 @@ class CLangListener
         this.tokenChannel = tokenChannel
         this.buffer = new StringBuilder(10000)
         this.handledTokens = new ArrayList<>()
-        this.ignoredTokens = new HashSet<>()
     }
 
     @Override
@@ -122,7 +127,6 @@ class CLangListener
         ctx.map({ context ->
             if (input.contains(CToJavaVocabulary.unsupportedPlaceholder)) {
                 String modified = input.replace(CToJavaVocabulary.unsupportedPlaceholder, concatenateParserContextChildrenTokens(context))
-                ignoredTokens.addAll(context.start.tokenIndex..context.stop.tokenIndex)
                 return modified
             } else return input
         }
@@ -156,10 +160,9 @@ class CLangListener
             result = "package ${packageName}; \n\n" + result
         }
         Pattern funDeclarations = Pattern.compile("(int|short|long|double|float|void|boolean|char)\\s+([a-zA-Z_]*)(\\()([a-zA-Z0-9\\[\\]()\\s,]*)(\\));")
-        Pattern.compile("static int main(.*)")
+        Pattern mainFun = Pattern.compile("static int main(.*)")
         result = result.replaceAll(funDeclarations, "")
-        result = result.replaceFirst("static int main(.*)", "public static void main(String[] args)")
+        result = result.replaceFirst(mainFun, "public static void main(String[] args)")
         return new Formatter().formatSource(result)
-        return result
     }
 }

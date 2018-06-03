@@ -3,8 +3,8 @@ package c2j
 import c2j.antlrGenerated.CLexer
 
 class CToJavaVocabulary {
-    public static def unsupportedPlaceholder = "\${statement}"
-    private static def unsupportedStatement = "Unsuported statement: $unsupportedPlaceholder"
+    public static final def unsupportedPlaceholder = "\${statement}"
+    private static final def unsupportedStatement = "Unsuported statement: $unsupportedPlaceholder"
 
 
     private static final Map<Integer, String> cToJavaVocabulary = [
@@ -27,28 +27,28 @@ class CToJavaVocabulary {
             (CLexer.Int)             : "int",
             (CLexer.Long)            : "long",
             (CLexer.Register)        : "/* Warning. Register keyword omitted. */\n",
-            (CLexer.Restrict)        : "",
+            (CLexer.Restrict)        : "/* inline specifier has been removed */\n",
             (CLexer.Return)          : "return",
             (CLexer.Short)           : "short",
             (CLexer.Signed)          : "/* signed keyword omitted. Java primitive types are signed by design. */\n",
-            (CLexer.Sizeof)          : "",
-            (CLexer.Static)          : "",
+            (CLexer.Sizeof)          : "/* Warning: C sizeof keyword is not supported */\n",
+            (CLexer.Static)          : "/* Warning: C static keyword is not supported */\n",
             (CLexer.Struct)          : "public static class",
             (CLexer.Switch)          : "switch",
-            (CLexer.Typedef)         : "",
+            (CLexer.Typedef)         : "/* Warning: typedef is not supported */\n",
             (CLexer.Union)           : "public static class",
             (CLexer.Unsigned)        : "/* Warning. Java does not support unsigned types. */\n",
             (CLexer.Void)            : "void",
             (CLexer.Volatile)        : "volatile",
             (CLexer.While)           : "while",
-            (CLexer.Alignas)         : "",
-            (CLexer.Alignof)         : "",
-            (CLexer.Atomic)          : "",
+            (CLexer.Alignas)         : "/* Warning: _Alignas keyword does not have its equivalent in Java */\n",
+            (CLexer.Alignof)         : "/* Warning: _Alignof keyword does not have its equivalent in Java */\n",
+            (CLexer.Atomic)          : "/* Warning: C _Atomic keyword is not supported */\n",
             (CLexer.Bool)            : "boolean",
-            (CLexer.Complex)         : "",
+            (CLexer.Complex)         : "/* Warning: _Complex keyword does not have its equivalent in Java */\n",
             (CLexer.Generic)         : "",
-            (CLexer.Imaginary)       : "",
-            (CLexer.Noreturn)        : "",
+            (CLexer.Imaginary)       : "/* Warning: _Imaginary keyword does not have its equivalent in Java */\n",
+            (CLexer.Noreturn)        : "/* Warning: _Noreturn keyword does not have its equivalent in Java */\n",
             (CLexer.StaticAssert)    : "assert",
             (CLexer.ThreadLocal)     : "",
             (CLexer.LeftParen)       : "(",
@@ -94,9 +94,9 @@ class CToJavaVocabulary {
             (CLexer.OrAssign)        : "|=",
             (CLexer.Equal)           : "==",
             (CLexer.NotEqual)        : "!=",
-            (CLexer.Arrow)           : "",
+            (CLexer.Arrow)           : ".",
             (CLexer.Dot)             : ".",
-            (CLexer.Ellipsis)        : ""
+            (CLexer.Ellipsis)        : "/* Warning: C ellipsis argument is not supported */\n"
     ].asImmutable()
 
 
