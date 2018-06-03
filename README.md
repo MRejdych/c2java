@@ -12,7 +12,7 @@
 
 
 ## Sposób użycia translatora
-Translator wymaga do działania Java Development Kit 10.
+Translator wymaga do działania Java Development Kit 10.  
 Aby uruchomić translator należy pobrać zawartość repozytorium, przejść do pobranego katalogu i uruchomić polecenie:
 ```
 ./gradlew translate
