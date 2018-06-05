@@ -42,21 +42,21 @@ Podczas pracy nad projektem napotkano następujące problemy:
 - Początkowy problem z decyzją, w jaki sposób projekt ma zostać zaimplementowany z powodu trudnej dostępności rzetelnych źródeł oraz skomplikowanej natury problemu. 
 Ostatecznie problem rozwiązano poprzez dokładne zapoznanie się z dokumentacją narzędzia ANTLR.
 - Wybór sposobu przejścia Abstract Syntax Tree będącego wynikiem pracy parsera. ANTLR umożliwia przejście drzewa za pomocą wzorca Listener lub Visitor. Dodatkowo oba podejścia można mieszać np. rozpoczynając przechodzenie drzewa od Listener'a a wybrane węzły obsługiwać za pomocą Visitora.  
-**Wzorzec Listener:**
-Zalety: 
+**Wzorzec Listener:**  
+Zalety:  
 - ANTLR umożlwia automatyczne przejście drzewa.  
 - Każdy węzeł posiada metody onEnter oraz onExit, co umożliwia logiczne pogrupowanie operacji wykonywanych na początku i na końcu obsługi węzła. Np. dla funkcji metoda onEnter mogłaby wypisywać typ zwracanej wartości przez funkcję, jej nazwę, listę parametrów oraz otwierający nawias klamrowy, natomiast metoda onExit mogłaby wypisać zamykający nawias klamrowy oraz znak nowej linii. Kod pomiędzy tymi konstrukcjami byłby obsłużony przez metody onEnter i onExit zdefiniowanymi dla poszczególnych reguł parsera.
-Wady:
+Wady:  
 - Konieczność zaimplementowania metod onEnter i onExit wymusza napisanie większej ilości kodu.
 - Z uwagi na automatyczne przejście drzewa AST listener ogranicza możliwość kontroli procesu przetwarzania odpowiednich węzłów.
-**Wzorzec Visitor:**
-Zalety:
+**Wzorzec Visitor:**  
+Zalety:  
 - Tylko jedna metoda na każdy węzeł
 - Metody zwracają wartość
 - Większa kontrola nad przechodzeniem drzewa i obsługą jego jego poszczególnych węzłów
-Wady:
-- Konieczność manualnego użycia visitora w kodzie na danym węźle podczas przechodzenia drzewa AST. W przypadku przypadkowego pominięcia wywołania dany węzeł zostanie zignorowany.
-**Ostatniecznie wybrano użycie jedynie wzorca Listener w celu przejścia drzewa AST.**
+Wady:  
+- Konieczność manualnego użycia visitora w kodzie na danym węźle podczas przechodzenia drzewa AST. W przypadku przypadkowego pominięcia wywołania dany węzeł zostanie zignorowany.  
+**Ostatniecznie wybrano użycie jedynie wzorca Listener w celu przejścia drzewa AST.**  
 
 ## Specyfikacja gramatyki języka C w notacji narzędzia ANTLRv4
 Plik ze specyfikacją znajduje się w repozytorium pod podaną ścieżką:  src/main/antlr/c2j/antlr/C.g4  
