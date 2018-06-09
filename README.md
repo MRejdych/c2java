@@ -4,6 +4,7 @@
 ## Spis treści:  <!-- omit in toc -->
 - [Sposób użycia translatora](#sposob-uycia-translatora)
 - [Technologie wykorzystane podczas tworzenia projektu](#technologie-wykorzystane-podczas-tworzenia-projektu)
+- [Opis systemu typizacji języka C oraz samego języka](#opis-systemu-typizacji-jzyka-c-oraz-samego-jzyka)
 - [Uzasadnienie wyboru generatora parserów ANTLRv4](#uzasadnienie-wyboru-generatora-parserow-antlrv4)
 - [Napotkane problemy oraz sposób ich rozwiązania](#napotkane-problemy-oraz-sposob-ich-rozwizania)
 - [Specyfikacja gramatyki języka C w notacji narzędzia ANTLRv4](#specyfikacja-gramatyki-jzyka-c-w-notacji-narzdzia-antlrv4)
@@ -30,6 +31,14 @@ Komentarz z ostrzeżeniem zostanie umieszczony w kodzie wynikowym, jeżeli trans
 Do stworzenia projektu wykorzystano narzędzie [ANTLR w wersji 4](https://github.com/antlr/antlr4) wraz z [oficjalną gramatyką](https://github.com/antlr/grammars-v4) języka C przygotowaną dla narzędzia ANTLR.  
 Narzędzie ANTLR zostało użyte w projekcie poprzez zintegrowanie go z narzędziem do budowania projektów [Gradle](https://gradle.org/) za pomocą odpowiedniego [pluginu](https://docs.gradle.org/current/userguide/antlr_plugin.html).  
 Translator został napisany w języku [Groovy](http://groovy-lang.org/), który jest kompilowany do bytecode'u JVM. Taka decyzja została podjęta z tego względu, że Groovy będąc językiem dynamicznym pozwala na większą swobodę podczas tworzenia tego typu aplikacji jednocześnie nadal obsługuje każdy poprawny kod napisany w Javie, dzięki czemu można wykorzystać część aplikacji wygenerowaną przez ANTLR dla języka Java.
+
+## Opis systemu typizacji języka C oraz samego języka
+Język C jest językiem:
+- o paradygmacie imperatywnym (proceduralnym)
+- wieloplatformowym
+- kompilowanym
+- statycznie typowanym
+- częściowo słabo typowanym (należy określić typ zmiennej, jednak przykładowo do zmiennej typu int można przypisać wartość typu char, która zostanie automatyczne przekonwertowana do wartości typu int)
 
 ## Uzasadnienie wyboru generatora parserów ANTLRv4
 Do realizacji projektu wybrano narzędzie ANTLRv4 ze względu na następujące kryteria:
