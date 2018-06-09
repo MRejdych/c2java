@@ -50,6 +50,7 @@ Do realizacji projektu wybrano narzędzie ANTLRv4 ze względu na następujące k
 Podczas pracy nad projektem napotkano następujące problemy:
 - Początkowy problem z decyzją, w jaki sposób projekt ma zostać zaimplementowany z powodu trudnej dostępności rzetelnych źródeł oraz skomplikowanej natury problemu. 
 Ostatecznie problem rozwiązano poprzez dokładne zapoznanie się z dokumentacją narzędzia ANTLR.
+- Przeniesienie białych znaków z pliku wejściowego do pliku wyjściowego. Problem rozwiązano poprzez przeniesienie białych znaków do kanału ukrytego, następnie umieszczaniu ich w odpowiednich miejscach pliku wyjściowego.  
 - Wybór sposobu przejścia Abstract Syntax Tree będącego wynikiem pracy parsera. ANTLR umożliwia przejście drzewa za pomocą wzorca Listener lub Visitor. Dodatkowo oba podejścia można mieszać np. rozpoczynając przechodzenie drzewa od Listener'a a wybrane węzły obsługiwać za pomocą Visitora.  
 **Wzorzec Listener:**  
 Zalety:  
